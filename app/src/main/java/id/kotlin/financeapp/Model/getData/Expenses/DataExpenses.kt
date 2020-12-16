@@ -1,8 +1,8 @@
-package id.kotlin.financeapp.Model.Data.Expenses
+package id.kotlin.financeapp.Model.getData.Expenses
 
 import com.google.gson.annotations.SerializedName
 
-data class DataItem(
+data class DataExpenses(
 
 	@field:SerializedName("trans_date")
 	val transDate: String? = null,

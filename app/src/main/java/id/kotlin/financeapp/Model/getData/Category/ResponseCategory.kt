@@ -1,8 +1,11 @@
-package id.kotlin.financeapp.Model.Action
+package id.kotlin.financeapp.Model.getData.Category
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseAction(
+data class ResponseCategory(
+
+	@field:SerializedName("data")
+	val data: List<DataCategory?>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,

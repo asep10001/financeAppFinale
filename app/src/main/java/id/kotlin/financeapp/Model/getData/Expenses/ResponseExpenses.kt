@@ -1,11 +1,11 @@
-package id.kotlin.financeapp.Model.Data.Category
+package id.kotlin.financeapp.Model.getData.Expenses
 
 import com.google.gson.annotations.SerializedName
 
-data class Response(
+data class ResponseExpenses(
 
 	@field:SerializedName("data")
-	val data: List<DataItem?>? = null,
+	val data: List<DataExpenses?>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,

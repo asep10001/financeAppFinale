@@ -1,8 +1,8 @@
-package id.kotlin.financeapp.Model.Data.Category
+package id.kotlin.financeapp.Model.getData.Category
 
 import com.google.gson.annotations.SerializedName
 
-data class DataItem(
+data class DataCategory(
 
 	@field:SerializedName("name")
 	val name: String? = null,
