@@ -40,4 +40,7 @@ interface ApiServices {
     @GET("expenses/getData.php")
     fun getDataExpenses(): Call<ResponseExpenses>
 
+    @DELETE("categories")
+     fun deleteDataCategory(@Query("categoryId") category_id: Long): Call<ResponseActions>
+
 }

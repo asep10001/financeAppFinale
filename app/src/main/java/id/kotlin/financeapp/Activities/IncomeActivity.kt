@@ -49,8 +49,8 @@ class IncomeActivity : AppCompatActivity() {
                         override fun hapusData(item: DataIncome?) {
 
                             AlertDialog.Builder(this@IncomeActivity).apply {
-                                setTitle("Hapus Data")
-                                setMessage("Apakah anda yakin ingin menghapus data ini?")
+                                setTitle("Hapus Income?")
+                                setMessage("Are you sure to delete this Income?")
                                 setPositiveButton("Delete") { dialog, _ ->
                                     delIncome(item?.id.toString().toLong())
                                     dialog.dismiss()
@@ -86,7 +86,7 @@ class IncomeActivity : AppCompatActivity() {
                 call: Call<ResponseActions>,
                 response: Response<ResponseActions>
             ) {
-                Toast.makeText(applicationContext, "Data berhasil dihapus", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Data is sucessfully deleted", Toast.LENGTH_SHORT).show()
                 showIncomeList()
             }
 
