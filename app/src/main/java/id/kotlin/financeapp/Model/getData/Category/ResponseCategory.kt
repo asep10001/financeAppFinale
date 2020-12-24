@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class ResponseCategory(
 
 	@field:SerializedName("data")
-	val data: List<DataCategory>? = null,
+	val data: List<DataItem?>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,
 
-	@field:SerializedName("isSuccsess")
-	val isSuccsess: Boolean? = null
+	@field:SerializedName("isSuccess")
+	val isSuccess: Boolean? = null
 )

@@ -1,12 +1,14 @@
 package id.kotlin.financeapp.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import id.kotlin.anggota.Config.NetworkModule
 import id.kotlin.financeapp.Adapters.IncomeAdapter
-import id.kotlin.financeapp.Model.actions.ResponseAction
+import id.kotlin.financeapp.InputActivity
+import id.kotlin.financeapp.Model.actions.ResponseActions
 import id.kotlin.financeapp.Model.getData.Income.DataIncome
 import id.kotlin.financeapp.Model.getData.Income.ResponseIncome
 import id.kotlin.financeapp.R
@@ -21,6 +23,10 @@ class IncomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_income)
 
+        fab.setOnClickListener{
+            val intent = Intent(this, InputActivity::class.java)
+            startActivity(intent)
+        }
         showIncomeList()
     }
 
@@ -35,10 +41,9 @@ class IncomeActivity : AppCompatActivity() {
                     val item = response.body()?.data
                     val adapter = IncomeAdapter(item, object : IncomeAdapter.OnClickListener {
                         override fun detail(item: DataIncome?) {
-//        val intent = Intent(this@IncomeActivity, InputActivity::class.java)
-//        intent.putExtra("data", item)
-//        startActivity(intent)
-
+                            val intent = Intent(this@IncomeActivity, InputActivity::class.java)
+                            intent.putExtra("dataIncome", item)
+                            startActivity(intent)
                         }
 
                         override fun hapusData(item: DataIncome?) {
@@ -47,7 +52,7 @@ class IncomeActivity : AppCompatActivity() {
                                 setTitle("Hapus Data")
                                 setMessage("Apakah anda yakin ingin menghapus data ini?")
                                 setPositiveButton("Delete") { dialog, _ ->
-                                    hapusItem(item?.id)
+                                    delIncome(item?.id.toString().toLong())
                                     dialog.dismiss()
                                 }
 
@@ -73,24 +78,27 @@ class IncomeActivity : AppCompatActivity() {
 
     }
 
-    private fun hapusItem(id: String?) {
-//        val hapus = NetworkModule.service().deleteIncome(id ?: "")
-//        hapus.enqueue(object : Callback<ResponseAction> {
-//            override fun onResponse(
-//                call: Call<ResponseAction>,
-//                response: Response<ResponseAction>
-//            ) {
-//                Toast.makeText(applicationContext, "Data berhasil dihapus", Toast.LENGTH_SHORT).show()
-//                showIncomeList()
-//            }
-//
-//            override fun onFailure(call: Call<ResponseAction>, t: Throwable) {
-//                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
-//            }
-//
-//        })
+
+    private fun delIncome(id: Long?) {
+        val hapus = NetworkModule.service().deleteDataIncome(id ?: 0)
+        hapus.enqueue(object : Callback<ResponseActions> {
+            override fun onResponse(
+                call: Call<ResponseActions>,
+                response: Response<ResponseActions>
+            ) {
+                Toast.makeText(applicationContext, "Data berhasil dihapus", Toast.LENGTH_SHORT).show()
+                showIncomeList()
+            }
+
+            override fun onFailure(call: Call<ResponseActions>, t: Throwable) {
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
     }
+
+
 
     override fun onResume() {
         super.onResume()

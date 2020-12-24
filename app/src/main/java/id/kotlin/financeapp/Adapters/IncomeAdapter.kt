@@ -27,8 +27,8 @@ class IncomeAdapter(val data: List<DataIncome>?, val itemClick: OnClickListener)
         val item = data?.get(position)
 
         holder.incomeName.text = item?.name
-        holder.incomeSum.text = item?.sum
-        holder.incomeDate.text = item?.transDate
+        holder.incomeSum.text = item?.ammount.toString()
+        holder.incomeDate.text = item?.transactionDate
 
         holder.view.setOnClickListener{
             itemClick.detail(item)
@@ -42,8 +42,8 @@ class IncomeAdapter(val data: List<DataIncome>?, val itemClick: OnClickListener)
     override fun getItemCount(): Int = data?.size ?: 0
 
     interface OnClickListener {
-        fun detail(item: DataIncome?)
+        fun detail(income: DataIncome?)
 
-        fun hapusData(item: DataIncome?)
+        fun hapusData(income: DataIncome?)
     }
 }

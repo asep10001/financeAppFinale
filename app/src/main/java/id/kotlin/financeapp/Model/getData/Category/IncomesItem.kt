@@ -1,11 +1,8 @@
-package id.kotlin.financeapp.Model.getData.Income
+package id.kotlin.financeapp.Model.getData.Category
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-data class DataIncome(
+data class IncomesItem(
 
 	@field:SerializedName("transaction_date")
 	val transactionDate: String? = null,
@@ -20,5 +17,5 @@ data class DataIncome(
 	val id: Int? = null,
 
 	@field:SerializedName("ammount")
-	val ammount: Double? = null
-) : Parcelable
+	val ammount: Int? = null
+)

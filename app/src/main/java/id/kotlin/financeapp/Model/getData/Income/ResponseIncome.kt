@@ -10,6 +10,6 @@ data class ResponseIncome(
 	@field:SerializedName("message")
 	val message: String? = null,
 
-	@field:SerializedName("isSuccsess")
-	val isSuccsess: Boolean? = null
+	@field:SerializedName("isSuccess")
+	val isSuccess: Boolean? = null
 )
