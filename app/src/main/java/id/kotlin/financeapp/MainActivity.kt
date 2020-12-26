@@ -17,21 +17,23 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    val bottomSheetFragment = BottomSheetFragment();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bottomSheetFragment = BottomSheetFragment();
 
         fabCategory.setOnClickListener {
             bottomSheetFragment.show(supportFragmentManager, "BottomSheetDialog")
         }
 
+
+
         showCategorylist()
     }
 
-    private fun showCategorylist() {
+    fun showCategorylist() {
         val listCategory = NetworkModule.service().getDataCategory()
         listCategory.enqueue(object : Callback<ResponseCategory> {
             override fun onResponse(
@@ -55,11 +57,20 @@ class MainActivity : AppCompatActivity() {
                                     delCategory(item?.id.toString().toLong())
                                     dialog.dismiss()
                                 }
-                                setNegativeButton("Cancel"){dialog,_->
+                                setNegativeButton("Cancel") { dialog, _ ->
                                     dialog.dismiss()
                                 }
                             }.show()
                         }
+
+                        override fun updateData(item: DataItem?) {
+                            val intent =
+                                Intent(this@MainActivity, CategoryInputActivity::class.java)
+                            intent.putExtra("dataCategory", item)
+                            startActivity(intent)
+                        }
+
+
                     })
                     listCategoryRV.adapter = adapter
                 }
@@ -71,7 +82,6 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
-
 
 
     private fun delCategory(id: Long?) {
@@ -96,9 +106,11 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
     override fun onResume() {
         super.onResume()
         showCategorylist()
     }
+
 
 }

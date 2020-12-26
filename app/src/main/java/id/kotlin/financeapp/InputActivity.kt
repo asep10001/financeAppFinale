@@ -111,7 +111,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 call: Call<ResponseActions>,
                 response: Response<ResponseActions>
             ) {
-                Toast.makeText(applicationContext, "Sucessfully insert ${name} to the database", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Successfully insert $name to the database", Toast.LENGTH_LONG).show()
                 finish()
             }
 

@@ -14,6 +14,11 @@ interface ApiServices {
     @GET("categories")
     fun getDataCategory(): Call<ResponseCategory>
 
+    @POST("categories")
+    fun insertDataCategory(
+        @Body requestBody: RequestBody
+    ): Call<ResponseActions>
+
     //getDataIncome
     @GET("incomes")
     fun getDataIncome(): Call<ResponseIncome>
@@ -42,5 +47,8 @@ interface ApiServices {
 
     @DELETE("categories")
      fun deleteDataCategory(@Query("categoryId") category_id: Long): Call<ResponseActions>
+
+    @PUT("categories/{categoryId}")
+    fun updateDataCategory(@Path("categoryId") category_id: Long, @Body requestBody: RequestBody): Call<ResponseActions>
 
 }
