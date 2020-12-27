@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import id.kotlin.anggota.Config.NetworkModule
 import id.kotlin.financeapp.Activities.DetailCategoryActivity
 import id.kotlin.financeapp.Activities.ExpensesActivity
 import id.kotlin.financeapp.Activities.IncomeActivity
-import id.kotlin.financeapp.Adapters.CategoryAdapter
+import id.kotlin.financeapp.Adapters.MainActivityAdapaters.CategoryAdapter
+import id.kotlin.financeapp.Adapters.MainActivityAdapaters.IncomeAdapter
+import id.kotlin.financeapp.Adapters.MainActivityAdapaters.ExpensesAdapter
 import id.kotlin.financeapp.Model.actions.ResponseActions
 import id.kotlin.financeapp.Model.getData.Category.DataItem
 import id.kotlin.financeapp.Model.getData.Category.ResponseCategory
+import id.kotlin.financeapp.Model.getData.Expenses.DataExpenses
+import id.kotlin.financeapp.Model.getData.Expenses.ResponseExpenses
+import id.kotlin.financeapp.Model.getData.Income.DataIncome
+import id.kotlin.financeapp.Model.getData.Income.ResponseIncome
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
 
         showCategorylist()
+        showIncomeList()
+        showExpensesList()
     }
 
     fun showCategorylist() {
@@ -86,6 +95,100 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    fun  showIncomeList() {
+        val listIncome = NetworkModule.service().getDataIncome()
+        listIncome.enqueue(object : Callback<ResponseIncome> {
+            override fun onResponse(
+                call: Call<ResponseIncome>,
+                response: Response<ResponseIncome>
+            ) {
+                if (response.isSuccessful) {
+                    val item = response.body()?.data
+                    val adapter = IncomeAdapter(
+                        item,
+                        object : IncomeAdapter.OnClickListener {
+                            override fun detail(item: DataIncome?) {
+                                val intent = Intent(this@MainActivity, InputActivity::class.java)
+                                intent.putExtra("categoryName", item?.categoryName)
+                                intent.putExtra("isIncome", "true")
+                                intent.putExtra("dataIncome", item)
+                                startActivity(intent)
+                            }
+
+                            override fun hapusData(item: DataIncome?) {
+
+                                AlertDialog.Builder(this@MainActivity).apply {
+                                    setTitle("Hapus Income?")
+                                    setMessage("Are you sure to delete this Income?")
+                                    setPositiveButton("Delete") { dialog, _ ->
+                                        IncomeActivity().delIncome(item?.id.toString().toLong())
+                                        dialog.dismiss()
+                                    }
+
+                                    setNegativeButton("Cancel") { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                }.show()
+                            }
+                        })
+                    listIncomeMain.adapter = adapter
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseIncome>, t: Throwable) {
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+    }
+
+    fun showExpensesList() {
+        val listExpenses = NetworkModule.service().getDataExpenses()
+        listExpenses.enqueue(object : Callback<ResponseExpenses> {
+            override fun onResponse(
+                call: Call<ResponseExpenses>,
+                response: Response<ResponseExpenses>
+            ) {
+                if (response.isSuccessful) {
+                    val item = response.body()?.data
+                    val adapter = ExpensesAdapter(item, object : ExpensesAdapter.OnClickListener {
+                        override fun detail(item: DataExpenses?) {
+                            val intent = Intent(this@MainActivity, InputActivity::class.java)
+                            intent.putExtra("categoryName", item?.categoryName)
+                            intent.putExtra("dataExpenses", item)
+                            intent.putExtra("isIncome", "false")
+                            startActivity(intent)
+                        }
+
+                        override fun hapusData(item: DataExpenses?) {
+
+                            AlertDialog.Builder(this@MainActivity).apply {
+                                setTitle("Hapus Income?")
+                                setMessage("Are you sure to delete this Expenses?")
+                                setPositiveButton("Delete") { dialog, _ ->
+                                    ExpensesActivity().delExpenses(item?.id.toString().toLong())
+                                    dialog.dismiss()
+                                }
+
+                                setNegativeButton("Cancel") { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                            }.show()
+                        }
+                    })
+                    listExpenseMain.adapter = adapter
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseExpenses>, t: Throwable) {
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+    }
+
 
     private fun delCategory(id: Long?) {
         val hapus = NetworkModule.service().deleteDataCategory(id ?: 0)
@@ -113,6 +216,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         showCategorylist()
+        showIncomeList()
     }
 
 

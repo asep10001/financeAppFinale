@@ -23,7 +23,7 @@ interface ApiServices {
     @GET("incomes")
     fun getDataIncome(): Call<ResponseIncome>
 
-    //insert
+    //insert Incomes
     @Headers("Content-Type: application/json")
     @POST("incomes")
     fun insertDataIncome(
@@ -31,9 +31,24 @@ interface ApiServices {
         @Body requestBody: RequestBody
     ): Call<ResponseActions>
 
+    //insert Expenses
+    @Headers("Content-Type: application/json")
+    @POST("expenses")
+    fun insertDataExpenses(
+        @Query("categoryId") category_id: Long,
+        @Body requestBody: RequestBody
+    ): Call<ResponseActions>
+
     @PUT("incomes/{incomeId}")
     fun updateDataIncome(
         @Path("incomeId") income_id: Long,
+        @Query("categoryId") category_id : Long,
+        @Body requestBody: RequestBody
+    ): Call<ResponseActions>
+
+    @PUT("expenses/{expensesId}")
+    fun updateDataExpenses(
+        @Path("expensesId") income_id: Long,
         @Query("categoryId") category_id : Long,
         @Body requestBody: RequestBody
     ): Call<ResponseActions>

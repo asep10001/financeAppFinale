@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import id.kotlin.anggota.Config.NetworkModule
 import id.kotlin.financeapp.Model.actions.ResponseActions
 import id.kotlin.financeapp.Model.getData.Category.ResponseCategory
+import id.kotlin.financeapp.Model.getData.Expenses.DataExpenses
 import id.kotlin.financeapp.Model.getData.Income.DataIncome
 import kotlinx.android.synthetic.main.activity_input.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -28,14 +29,20 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setContentView(R.layout.activity_input)
         getCategoryId()
         val getIncomeData = intent.getParcelableExtra<DataIncome>("dataIncome");
+        val getExpensesData = intent.getParcelableExtra<DataExpenses>("dataExpenses")
         val isIncome = intent.getStringExtra("isIncome")
         categoryName = intent.getStringExtra("categoryName")
 //        getCategoryList();
         etCategory.setText(categoryName)
-        if (getIncomeData != null) {
+        if (getIncomeData != null && getExpensesData == null) {
             etName.setText(getIncomeData.name)
             etSum.setText(getIncomeData.ammount.toString())
             etTransactionDate.setText(getIncomeData.transactionDate)
+            button1.text = "Update"
+        }else if(getExpensesData != null && getIncomeData == null){
+            etName.setText(getExpensesData.name)
+            etSum.setText(getExpensesData.ammount.toString())
+            etTransactionDate.setText(getExpensesData.transactionDate)
             button1.text = "Update"
         }
 
@@ -54,6 +61,17 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             )
                         }
                     }
+                    else -> {
+                        button1.setOnClickListener {
+                            updateDataExpenses(
+                                getExpensesData.id.toString().toLong(),
+                                categoryId,
+                                etName.text.toString(),
+                                etTransactionDate.text.toString(),
+                                etSum.text.toString()
+                            )
+                        }
+                    }
                 }
             }
             else -> {
@@ -61,6 +79,16 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     "true" -> {
                         button1.setOnClickListener {
                             inputDataIncome(
+                                categoryId,
+                                etName.text.toString(),
+                                etTransactionDate.text.toString(),
+                                etSum.text.toString()
+                            )
+                        }
+                    }
+                    else -> {
+                        button1.setOnClickListener {
+                            inputDataExpenses(
                                 categoryId,
                                 etName.text.toString(),
                                 etTransactionDate.text.toString(),
@@ -84,7 +112,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             ) {
                 if (response.isSuccessful) {
                     response?.body()?.data?.forEach { item ->
-                        if(categoryName == item.name){
+                        if (categoryName == item.name) {
                             categoryId = item?.id?.toString()?.toLong() ?: 0
                         }
                     }
@@ -176,6 +204,43 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         })
     }
 
+    fun inputDataExpenses(
+        category_id: Long?,
+        name: String?,
+        transaction_date: String?,
+        ammount: String?
+    ) {
+        // Create JSON using JSONObject
+        val jsonObject = JSONObject()
+        jsonObject.put("name", name)
+        jsonObject.put("transaction_date", transaction_date)
+        jsonObject.put("ammount", ammount)
+
+        // Convert JSONObject to String
+        val jsonObjectString = jsonObject.toString()
+
+        // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
+        val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
+        val input = NetworkModule.service().insertDataExpenses(category_id ?: 0, requestBody)
+        input.enqueue(object : Callback<ResponseActions> {
+            override fun onResponse(
+                call: Call<ResponseActions>,
+                response: Response<ResponseActions>
+            ) {
+                Toast.makeText(
+                    applicationContext,
+                    "Successfully insert $name to the database",
+                    Toast.LENGTH_LONG
+                ).show()
+                finish()
+            }
+
+            override fun onFailure(call: Call<ResponseActions>, t: Throwable) {
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
     fun updateDataIncome(
         income_id: Long,
         category_id: Long?,
@@ -203,7 +268,47 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             ) {
                 Toast.makeText(
                     applicationContext,
-                    "Sucessfully updating ${name} in the database",
+                    "Successfully updating $name in the database",
+                    Toast.LENGTH_LONG
+                ).show()
+                finish()
+            }
+
+            override fun onFailure(call: Call<ResponseActions>, t: Throwable) {
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    fun updateDataExpenses(
+        expenses_id: Long,
+        category_id: Long?,
+        name: String?,
+        transaction_date: String?,
+        ammount: String?
+    ) {
+        // Create JSON using JSONObject
+        val jsonObject = JSONObject()
+        jsonObject.put("name", name)
+        jsonObject.put("transaction_date", transaction_date)
+        jsonObject.put("ammount", ammount)
+
+        // Convert JSONObject to String
+        val jsonObjectString = jsonObject.toString()
+
+        // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
+        val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
+        val input =
+            NetworkModule.service()
+                .updateDataExpenses(expenses_id ?: 0, category_id ?: 0, requestBody)
+        input.enqueue(object : Callback<ResponseActions> {
+            override fun onResponse(
+                call: Call<ResponseActions>,
+                response: Response<ResponseActions>
+            ) {
+                Toast.makeText(
+                    applicationContext,
+                    "Successfully updating $name in the database",
                     Toast.LENGTH_LONG
                 ).show()
                 finish()

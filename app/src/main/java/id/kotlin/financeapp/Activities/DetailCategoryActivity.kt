@@ -61,7 +61,7 @@ class DetailCategoryActivity : AppCompatActivity() {
                         override fun detail(item: DataExpenses?) {
                             val intent = Intent(this@DetailCategoryActivity, InputActivity::class.java)
                             intent.putExtra("categoryName", categoryName)
-                            intent.putExtra("dataExpensesDetail", item)
+                            intent.putExtra("dataExpenses", item)
                             intent.putExtra("isIncome", "false")
                             startActivity(intent)
                         }

@@ -29,10 +29,10 @@ class ExpensesActivity : AppCompatActivity() {
             val intent = Intent(this, InputActivity::class.java)
             startActivity(intent)
         }
-        showExpensesList()
+        showExpensesList(listExpense)
     }
 
-    fun showExpensesList() {
+    fun showExpensesList(x: RecyclerView) {
         val listExpenses = NetworkModule.service().getDataExpenses()
         listExpenses.enqueue(object : Callback<ResponseExpenses> {
             override fun onResponse(
@@ -64,7 +64,7 @@ class ExpensesActivity : AppCompatActivity() {
                             }.show()
                         }
                     })
-                    listExpense.adapter = adapter
+                    x.adapter = adapter
                 }
             }
 
@@ -84,7 +84,7 @@ class ExpensesActivity : AppCompatActivity() {
                 response: Response<ResponseActions>
             ) {
                 Toast.makeText(applicationContext, "Data is sucessfully deleted", Toast.LENGTH_SHORT).show()
-                showExpensesList()
+                showExpensesList(listExpense)
             }
 
             override fun onFailure(call: Call<ResponseActions>, t: Throwable) {
@@ -97,6 +97,6 @@ class ExpensesActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        showExpensesList()
+        showExpensesList(listExpense)
     }
 }

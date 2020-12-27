@@ -1,27 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/rlCategory"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listCategoryRV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20sp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_category" />
+<LinearLayout
+    android:layout_gravity="center"
+    android:layout_below="@+id/searchView"
+    android:layout_alignParentTop="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/totalIncome"
+                    android:background="@drawable/background_text"
+                    android:layout_margin="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listCategoryRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/totalIncome"
+                    android:padding="20sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_category" />
+
+                <TextView
+                    android:id="@+id/incomeTitleMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/listCategoryRV"
+                    android:text="Incomes" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listIncomeMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/incomeTitleMain"
+                    android:orientation="horizontal"
+                    android:padding="20sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_income" />
+
+                <TextView
+                    android:id="@+id/expenseTitleMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/listIncomeMain"
+                    android:text="Expenses" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listExpenseMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/expenseTitleMain"
+                    android:orientation="horizontal"
+                    android:padding="20sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_income" />
+
+
+            </RelativeLayout>
+
+    </ScrollView>
+</LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabCategory"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
         android:layout_margin="30dp"
         android:src="@drawable/ic_person_add_white_48dp" />
 
-</RelativeLayout>
+</FrameLayout>
