@@ -39,6 +39,16 @@
                 android:hint="New Category"
                 android:textSize="30sp" />
 
+            <EditText
+                android:id="@+id/etNewCategoryImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/background_text"
+                android:gravity="center"
+                android:hint="Image URL"
+                android:textSize="30sp" />
+
             <Button
                 android:id="@+id/btnNewCategory"
                 android:layout_width="wrap_content"

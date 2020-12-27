@@ -36,12 +36,14 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         etCategory.setText(categoryName)
         if (getIncomeData != null && getExpensesData == null) {
             etName.setText(getIncomeData.name)
+            etImage.setText(getIncomeData.image)
             etSum.setText(getIncomeData.ammount.toString())
             etTransactionDate.setText(getIncomeData.transactionDate)
             button1.text = "Update"
         }else if(getExpensesData != null && getIncomeData == null){
             etName.setText(getExpensesData.name)
             etSum.setText(getExpensesData.ammount.toString())
+            etImage.setText(getExpensesData.image)
             etTransactionDate.setText(getExpensesData.transactionDate)
             button1.text = "Update"
         }
@@ -56,6 +58,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                                 getIncomeData.id.toString().toLong(),
                                 categoryId,
                                 etName.text.toString(),
+                                etImage.text.toString(),
                                 etTransactionDate.text.toString(),
                                 etSum.text.toString()
                             )
@@ -67,6 +70,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                                 getExpensesData.id.toString().toLong(),
                                 categoryId,
                                 etName.text.toString(),
+                                etImage.text.toString(),
                                 etTransactionDate.text.toString(),
                                 etSum.text.toString()
                             )
@@ -81,6 +85,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             inputDataIncome(
                                 categoryId,
                                 etName.text.toString(),
+                                etImage.text.toString(),
                                 etTransactionDate.text.toString(),
                                 etSum.text.toString()
                             )
@@ -91,6 +96,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             inputDataExpenses(
                                 categoryId,
                                 etName.text.toString(),
+                                etImage.text.toString(),
                                 etTransactionDate.text.toString(),
                                 etSum.text.toString()
                             )
@@ -170,12 +176,14 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun inputDataIncome(
         category_id: Long?,
         name: String?,
+        image: String?,
         transaction_date: String?,
         ammount: String?
     ) {
         // Create JSON using JSONObject
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
+        jsonObject.put("image", image)
         jsonObject.put("transaction_date", transaction_date)
         jsonObject.put("ammount", ammount)
 
@@ -207,12 +215,14 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun inputDataExpenses(
         category_id: Long?,
         name: String?,
+        image: String?,
         transaction_date: String?,
         ammount: String?
     ) {
         // Create JSON using JSONObject
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
+        jsonObject.put("image", image)
         jsonObject.put("transaction_date", transaction_date)
         jsonObject.put("ammount", ammount)
 
@@ -245,12 +255,14 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         income_id: Long,
         category_id: Long?,
         name: String?,
+        image: String?,
         transaction_date: String?,
         ammount: String?
     ) {
         // Create JSON using JSONObject
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
+        jsonObject.put("image", image)
         jsonObject.put("transaction_date", transaction_date)
         jsonObject.put("ammount", ammount)
 
@@ -284,12 +296,14 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         expenses_id: Long,
         category_id: Long?,
         name: String?,
+        image: String?,
         transaction_date: String?,
         ammount: String?
     ) {
         // Create JSON using JSONObject
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
+        jsonObject.put("image", image)
         jsonObject.put("transaction_date", transaction_date)
         jsonObject.put("ammount", ammount)
 

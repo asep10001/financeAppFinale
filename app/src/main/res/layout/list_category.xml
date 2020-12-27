@@ -18,14 +18,21 @@
 
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/textCategoryImage"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_account">
+
+            </ImageView>
             <TextView
                 android:id="@+id/textCategoryName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_account"
                 android:drawablePadding="10sp"
                 android:textSize="25dp"
                 android:gravity="center"

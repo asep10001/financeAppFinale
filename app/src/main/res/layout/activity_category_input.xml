@@ -31,7 +31,14 @@
                 android:layout_width="match_parent"
                 android:layout_marginVertical="10dp"
                 android:layout_height="wrap_content"
-                android:hint="text"/>
+                android:hint="Category Name"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/imageUpdateTextCategory"
+                android:layout_width="match_parent"
+                android:layout_marginVertical="10dp"
+                android:layout_height="wrap_content"
+                android:hint="Image URL"/>
 
             <Button
                 android:id="@+id/btnUpdateCategory"
