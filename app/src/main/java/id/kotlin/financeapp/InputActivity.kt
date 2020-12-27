@@ -1,6 +1,5 @@
 package id.kotlin.financeapp
 
-import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -19,39 +18,85 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     @RequiresApi(Build.VERSION_CODES.N)
-
-
+    var categoryId: Long = 0
+    lateinit var categoryName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input)
-
+        getCategoryId()
         val getIncomeData = intent.getParcelableExtra<DataIncome>("dataIncome");
-        getCategoryList();
+        val isIncome = intent.getStringExtra("isIncome")
+        categoryName = intent.getStringExtra("categoryName")
+//        getCategoryList();
+        etCategory.setText(categoryName)
         if (getIncomeData != null) {
             etName.setText(getIncomeData.name)
-            etCategory.setText("Please choose the category")
             etSum.setText(getIncomeData.ammount.toString())
             etTransactionDate.setText(getIncomeData.transactionDate)
             button1.text = "Update"
         }
 
-        when(button1.text){
-            "Update" ->{
-                button1.setOnClickListener{
-                    updateDataIncome(getIncomeData.id.toString().toLong(), etCategory.text.toString().toLong(), etName.text.toString(), etTransactionDate.text.toString(), etSum.text.toString())
+
+        when (button1.text) {
+            "Update" -> {
+                when (isIncome) {
+                    "true" -> {
+                        button1.setOnClickListener {
+                            updateDataIncome(
+                                getIncomeData.id.toString().toLong(),
+                                categoryId,
+                                etName.text.toString(),
+                                etTransactionDate.text.toString(),
+                                etSum.text.toString()
+                            )
+                        }
+                    }
                 }
-            }else ->{
-            button1.setOnClickListener{
-                inputDataIncome(etCategory.text.toString().toLong(), etName.text.toString(), etTransactionDate.text.toString(), etSum.text.toString())
+            }
+            else -> {
+                when (isIncome) {
+                    "true" -> {
+                        button1.setOnClickListener {
+                            inputDataIncome(
+                                categoryId,
+                                etName.text.toString(),
+                                etTransactionDate.text.toString(),
+                                etSum.text.toString()
+                            )
+                        }
+                    }
+                }
             }
         }
-        }
+
     }
 
+
+    fun getCategoryId() {
+        val listCategory = NetworkModule.service().getDataCategory();
+        listCategory.enqueue(object : Callback<ResponseCategory> {
+            override fun onResponse(
+                call: Call<ResponseCategory>,
+                response: Response<ResponseCategory>
+            ) {
+                if (response.isSuccessful) {
+                    response?.body()?.data?.forEach { item ->
+                        if(categoryName == item.name){
+                            categoryId = item?.id?.toString()?.toLong() ?: 0
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseCategory>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
 
     fun getCategoryList() {
         val listCategory = NetworkModule.service().getDataCategory();
@@ -84,6 +129,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     }
                 }
             }
+
             override fun onFailure(call: Call<ResponseCategory>, t: Throwable) {
                 print(t.message)
             }
@@ -93,7 +139,12 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     }
 
-    private fun inputDataIncome(category_id: Long?, name : String?, transaction_date : String?, ammount: String?){
+    fun inputDataIncome(
+        category_id: Long?,
+        name: String?,
+        transaction_date: String?,
+        ammount: String?
+    ) {
         // Create JSON using JSONObject
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
@@ -111,7 +162,11 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 call: Call<ResponseActions>,
                 response: Response<ResponseActions>
             ) {
-                Toast.makeText(applicationContext, "Successfully insert $name to the database", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Successfully insert $name to the database",
+                    Toast.LENGTH_LONG
+                ).show()
                 finish()
             }
 
@@ -121,7 +176,13 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         })
     }
 
-    private fun updateDataIncome(income_id: Long, category_id: Long?, name : String?, transaction_date : String?, ammount: String?){
+    fun updateDataIncome(
+        income_id: Long,
+        category_id: Long?,
+        name: String?,
+        transaction_date: String?,
+        ammount: String?
+    ) {
         // Create JSON using JSONObject
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
@@ -133,13 +194,18 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
         val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-        val input = NetworkModule.service().updateDataIncome(income_id ?: 0, category_id ?: 0, requestBody)
+        val input =
+            NetworkModule.service().updateDataIncome(income_id ?: 0, category_id ?: 0, requestBody)
         input.enqueue(object : Callback<ResponseActions> {
             override fun onResponse(
                 call: Call<ResponseActions>,
                 response: Response<ResponseActions>
             ) {
-                Toast.makeText(applicationContext, "Sucessfully updating ${name} in the database", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Sucessfully updating ${name} in the database",
+                    Toast.LENGTH_LONG
+                ).show()
                 finish()
             }
 
@@ -148,6 +214,7 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         })
     }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
     }
 

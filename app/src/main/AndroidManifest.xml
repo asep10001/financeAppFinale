@@ -12,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CategoryInputActivity"></activity>
+        <activity android:name=".Activities.ExpensesActivity"></activity>
+        <activity android:name=".Activities.DetailCategoryActivity" />
+        <activity android:name=".CategoryInputActivity" />
         <activity android:name=".InputActivity" />
-        <activity android:name=".Activities.IncomeActivity"></activity>
+        <activity android:name=".Activities.IncomeActivity" />
         <activity android:name=".SplashScreen" />
         <activity android:name=".MainActivity">
             <intent-filter>

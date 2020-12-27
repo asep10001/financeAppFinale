@@ -41,8 +41,11 @@ interface ApiServices {
     @DELETE("incomes")
     fun deleteDataIncome(@Query("incomeId") income_id: Long): Call<ResponseActions>
 
+    @DELETE("expenses")
+    fun deleteDataExpenses(@Query("expensesId") expenses_id: Long): Call<ResponseActions>
+
     //getDataIncome
-    @GET("expenses/getData.php")
+    @GET("expenses")
     fun getDataExpenses(): Call<ResponseExpenses>
 
     @DELETE("categories")
@@ -50,5 +53,11 @@ interface ApiServices {
 
     @PUT("categories/{categoryId}")
     fun updateDataCategory(@Path("categoryId") category_id: Long, @Body requestBody: RequestBody): Call<ResponseActions>
+
+    @GET("expenses/search/category")
+    fun getDataExpensesByCategory(@Query("categoryName") categoryName: String): Call<ResponseExpenses>
+
+    @GET("incomes/search/category")
+    fun getDataIncomesByCategory(@Query("categoryName") categoryName: String): Call<ResponseIncome>
 
 }

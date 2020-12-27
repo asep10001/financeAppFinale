@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/rlIncome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtIncomeCategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="INCOMES"
+                    android:textSize="40sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listIncomeDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/txtIncomeCategoryTitle"
+                    android:padding="20sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_income" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlExpenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlIncome"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtExpensesCategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="EXPENSES"
+                    android:textSize="40sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listExpensesDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/txtExpensesCategoryTitle"
+                    android:padding="20sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_income" />
+            </RelativeLayout>
+
+
+            <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+            <!--            android:id="@+id/fabDetailCategory"-->
+            <!--            android:layout_width="100dp"-->
+            <!--            android:layout_height="100dp"-->
+            <!--            android:layout_alignParentRight="true"-->
+            <!--            android:layout_alignParentBottom="true"-->
+            <!--            android:layout_margin="30dp"-->
+            <!--            android:src="@drawable/ic_person_add_white_48dp" />-->
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/createIncomeDetail"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#E12196F3"
+            android:background="@drawable/background_button"
+            android:text="ADD INCOME" />
+
+        <Button
+            android:id="@+id/createExpensesDetail"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_button"
+            android:backgroundTint="#D7FFEB3B"
+            android:layout_weight="1"
+            android:text="ADD EXPENSE" />
+    </LinearLayout>
+</FrameLayout>

@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import id.kotlin.anggota.Config.NetworkModule
+import id.kotlin.financeapp.Activities.DetailCategoryActivity
+import id.kotlin.financeapp.Activities.ExpensesActivity
 import id.kotlin.financeapp.Activities.IncomeActivity
 import id.kotlin.financeapp.Adapters.CategoryAdapter
 import id.kotlin.financeapp.Model.actions.ResponseActions
@@ -44,8 +46,9 @@ class MainActivity : AppCompatActivity() {
                     val item = response.body()?.data
                     val adapter = CategoryAdapter(item, object : CategoryAdapter.OnClickListener {
                         override fun detail(item: DataItem?) {
-                            val intent = Intent(this@MainActivity, IncomeActivity::class.java)
+                            val intent = Intent(this@MainActivity, DetailCategoryActivity::class.java)
                             intent.putExtra("dataCategory", item)
+                            intent.putExtra("categoryName", item?.name)
                             startActivity(intent)
                         }
 

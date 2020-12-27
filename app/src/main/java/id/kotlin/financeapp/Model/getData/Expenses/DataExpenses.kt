@@ -1,21 +1,24 @@
 package id.kotlin.financeapp.Model.getData.Expenses
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class DataExpenses(
 
-	@field:SerializedName("trans_date")
-	val transDate: String? = null,
+	@field:SerializedName("transaction_date")
+	val transactionDate: String? = null,
 
-	@field:SerializedName("category_id")
-	val categoryId: String? = null,
+	@field:SerializedName("category_name")
+	val categoryName: String? = null,
 
 	@field:SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("sum")
-	val sum: String? = null,
-
 	@field:SerializedName("id")
-	val id: String? = null
-)
+	val id: Int? = null,
+
+	@field:SerializedName("ammount")
+	val ammount: Int? = null
+) : Parcelable

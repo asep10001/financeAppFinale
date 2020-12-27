@@ -58,7 +58,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                     "Successfully insert $name to the database",
                     Toast.LENGTH_LONG
                 ).show()
-                activity?.finish()
+                activity?.recreate()
             }
 
             override fun onFailure(call: Call<ResponseActions>, t: Throwable) {
