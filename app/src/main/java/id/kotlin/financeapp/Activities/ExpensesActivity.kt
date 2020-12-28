@@ -45,6 +45,10 @@ class ExpensesActivity : AppCompatActivity() {
                         override fun detail(item: DataExpenses?) {
                             val intent = Intent(this@ExpensesActivity, InputActivity::class.java)
                             intent.putExtra("dateExpenses", item)
+                            intent.putExtra("isIncome", "false")
+                            if (item != null) {
+                                intent.putExtra("categoryName", item.categoryName)
+                            }
                             startActivity(intent)
                         }
 

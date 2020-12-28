@@ -43,6 +43,8 @@ class IncomeActivity : AppCompatActivity() {
                         override fun detail(item: DataIncome?) {
                             val intent = Intent(this@IncomeActivity, ShowAllInputActivity::class.java)
                             intent.putExtra("dataIncome", item)
+                            intent.putExtra("isIncome", "true")
+                            intent.putExtra("categoryName", item?.categoryName)
                             startActivity(intent)
                         }
 

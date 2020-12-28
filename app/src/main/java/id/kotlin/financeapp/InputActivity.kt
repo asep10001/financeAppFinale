@@ -132,46 +132,9 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         })
     }
 
-    fun getCategoryList() {
-        val listCategory = NetworkModule.service().getDataCategory();
-        listCategory.enqueue(object : Callback<ResponseCategory> {
-            override fun onResponse(
-                call: Call<ResponseCategory>,
-                response: Response<ResponseCategory>
-            ) {
-                if (response.isSuccessful) {
-                    val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
-
-                    response?.body()?.data?.forEach { item ->
-                        var radioButton = RadioButton(this@InputActivity)
-//                        Toast.makeText(
-//                            this@InputActivity,
-//                            list_of_items?.get(0)?.name,
-//                            Toast.LENGTH_LONG
-//                        ).show()
-                        radioButton.layoutParams = LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                        radioButton.text = item?.name
-                        radioButton.setOnClickListener {
-                            etCategory.text = item?.id.toString()
-                        }
-                        if (radioGroup != null) {
-                            radioGroup.addView(radioButton)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseCategory>, t: Throwable) {
-                print(t.message)
-            }
-
-        })
 
 
-    }
+
 
     fun inputDataIncome(
         category_id: Long?,
