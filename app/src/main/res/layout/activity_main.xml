@@ -7,49 +7,56 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<LinearLayout
-    android:layout_gravity="center"
-    android:layout_below="@+id/searchView"
-    android:layout_alignParentTop="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchView"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/totalIncome"
-                    android:background="@drawable/background_text"
-                    android:layout_margin="30dp"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_height="250dp"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/background_text" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listCategoryRV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
                     android:layout_below="@+id/totalIncome"
+                    android:orientation="horizontal"
                     android:padding="20sp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/list_category" />
 
-                <TextView
-                    android:id="@+id/incomeTitleMain"
+                <LinearLayout
+                    android:id="@+id/layoutIncomeTitleMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/listCategoryRV"
-                    android:text="Incomes" />
+                    android:layout_below="@+id/listCategoryRV">
+
+                    <TextView
+                        android:id="@+id/incomeTitleMain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Incomes" />
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listIncomeMain"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/incomeTitleMain"
+                    android:layout_below="@id/layoutIncomeTitleMain"
                     android:orientation="horizontal"
                     android:padding="20sp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -75,8 +82,9 @@
 
             </RelativeLayout>
 
-    </ScrollView>
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabCategory"
         android:layout_width="50dp"
