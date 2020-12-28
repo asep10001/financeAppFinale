@@ -108,6 +108,10 @@ class ShowAllInputActivity : AppCompatActivity() {
                 }
             }
         }
+
+        button2.setOnClickListener{
+            finish()
+        }
     }
 
 

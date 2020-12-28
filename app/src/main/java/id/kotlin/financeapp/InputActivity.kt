@@ -106,6 +106,9 @@ class InputActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
 
+        button2.setOnClickListener{
+            finish()
+        }
     }
 
 
