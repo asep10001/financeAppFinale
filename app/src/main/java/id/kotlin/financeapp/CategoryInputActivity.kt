@@ -23,16 +23,18 @@ class CategoryInputActivity : AppCompatActivity() {
         val getCategoryData = intent.getParcelableExtra<DataItem>("dataCategory")
         if(getCategoryData!=null){
             ieUpdateTextCategory.setText(getCategoryData.name.toString())
+            imageUpdateTextCategory.setText(getCategoryData.image.toString())
 
             btnUpdateCategory.setOnClickListener{
-                updateDataCategory(getCategoryData.id.toString().toLong(), ieUpdateTextCategory.text.toString())
+                updateDataCategory(getCategoryData.id.toString().toLong(), ieUpdateTextCategory.text.toString(), imageUpdateTextCategory.text.toString())
             }
         }
     }
 
-    private fun updateDataCategory(category_id: Long?, name: String?) {
+    private fun updateDataCategory(category_id: Long?, name: String?, image: String?) {
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
+        jsonObject.put("image", image)
 
         val jsonObjectString = jsonObject.toString()
 

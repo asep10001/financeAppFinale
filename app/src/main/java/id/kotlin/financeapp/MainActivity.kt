@@ -217,6 +217,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         showCategorylist()
         showIncomeList()
+        showExpensesList()
     }
 
 

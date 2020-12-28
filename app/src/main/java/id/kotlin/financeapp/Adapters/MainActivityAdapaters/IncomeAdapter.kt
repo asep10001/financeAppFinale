@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import id.kotlin.financeapp.Adapters.GlideApp
 import id.kotlin.financeapp.Model.getData.Income.DataIncome
 import id.kotlin.financeapp.R
 import kotlinx.android.synthetic.main.list_income.view.*
@@ -31,7 +32,7 @@ class IncomeAdapter(val data: List<DataIncome>?, val itemClick: OnClickListener)
         holder.incomeName.text = item?.name
         holder.incomeSum.text = item?.ammount.toString()
         holder.incomeDate.text = item?.transactionDate
-        Glide.with(holder.view.context).load(item?.image).into(holder.incomeImage)
+        GlideApp.with(holder.view.context).load(item?.image).into(holder.incomeImage)
 
 
         holder.view.setOnClickListener{

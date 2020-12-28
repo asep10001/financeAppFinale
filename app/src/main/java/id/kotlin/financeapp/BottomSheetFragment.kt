@@ -34,15 +34,17 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnNewCategory.setOnClickListener {
-            inputDataCategory(etNewCategory.text.toString())
+            inputDataCategory(etNewCategory.text.toString(), etNewCategoryImage.text.toString())
+
         }
 
 
     }
 
-    fun inputDataCategory(name: String?) {
+    fun inputDataCategory(name: String?, image: String?) {
         val jsonObject = JSONObject()
         jsonObject.put("name", name)
+        jsonObject.put("image", image)
 
         val jsonObjectString = jsonObject.toString()
 
