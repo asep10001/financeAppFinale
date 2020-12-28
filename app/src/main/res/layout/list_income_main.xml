@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_account"
+                android:drawableLeft="@drawable/ic_local_transaction"
                 android:drawablePadding="10sp"
                 android:text="Transaction Name : "
                 android:textColor="#000" />
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_local_phone"
+                android:drawableLeft="@drawable/ic_attach_money_black_24dp"
                 android:drawablePadding="10sp"
                 android:text="Transaction Ammount : "
                 android:textColor="#000" />
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_home"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
                 android:drawablePadding="10sp"
                 android:text="Transaction Date : "
                 android:textColor="#000" />

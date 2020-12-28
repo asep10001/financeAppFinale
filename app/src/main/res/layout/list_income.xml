@@ -18,13 +18,14 @@
         <ImageView
             android:id="@+id/textIncomeImage"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_account"/>
 
 
         <LinearLayout
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -33,9 +34,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_account"
                 android:drawablePadding="10sp"
+                android:drawableLeft="@drawable/ic_local_transaction"
                 android:text="Transaction Name : "
+                android:textSize="25dp"
+                android:fontFamily="sans-serif"
+                android:layout_weight="900"
+                android:layout_margin="5dp"
                 android:textColor="#000" />
 
             <TextView
@@ -43,8 +48,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_local_phone"
+                android:drawableLeft="@drawable/ic_attach_money_black_24dp"
                 android:drawablePadding="10sp"
+                android:textSize="17dp"
+                android:fontFamily="sans-serif"
+                android:layout_margin="5dp"
                 android:text="Transaction Ammount : "
                 android:textColor="#000" />
         </LinearLayout>
@@ -60,8 +68,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_home"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
                 android:drawablePadding="10sp"
+                android:textSize="17dp"
+                android:fontFamily="sans-serif"
+                android:layout_margin="5dp"
                 android:text="Transaction Date : "
                 android:textColor="#000" />
 
