@@ -37,7 +37,15 @@ class MainActivity : AppCompatActivity() {
             bottomSheetFragment.show(supportFragmentManager, "BottomSheetDialog")
         }
 
+        textShowAllIncomes.setOnClickListener{
+            val intent = Intent(this, IncomeActivity::class.java)
+            startActivity(intent)
+        }
 
+        textShowAllExpenses.setOnClickListener{
+            val intent = Intent(this, IncomeActivity::class.java)
+            startActivity(intent)
+        }
 
         showCategorylist()
         showIncomeList()
