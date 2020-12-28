@@ -43,13 +43,26 @@
                     android:id="@+id/layoutIncomeTitleMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
                     android:layout_below="@+id/listCategoryRV">
 
                     <TextView
-                        android:id="@+id/incomeTitleMain"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="20dp"
                         android:text="Incomes" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="20dp"
+                        android:fontFamily="sans-serif"
+                        android:textFontWeight="500"
+                        android:textColor="#05CD58"
+                        android:textAlignment="textEnd"
+                        android:text="Show All" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
