@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import id.kotlin.anggota.Config.NetworkModule
 import id.kotlin.financeapp.Activities.DetailCategoryActivity
 import id.kotlin.financeapp.Activities.ExpensesActivity
 import id.kotlin.financeapp.Activities.IncomeActivity
 import id.kotlin.financeapp.Adapters.MainActivityAdapaters.CategoryAdapter
-import id.kotlin.financeapp.Adapters.MainActivityAdapaters.IncomeAdapter
 import id.kotlin.financeapp.Adapters.MainActivityAdapaters.ExpensesAdapter
+import id.kotlin.financeapp.Adapters.MainActivityAdapaters.IncomeAdapter
 import id.kotlin.financeapp.Model.actions.ResponseActions
 import id.kotlin.financeapp.Model.getData.Category.DataItem
 import id.kotlin.financeapp.Model.getData.Category.ResponseCategory
@@ -27,6 +26,10 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     val bottomSheetFragment = BottomSheetFragment();
+    var incomeLists: List<DataIncome>? = null
+    var expenseLists: List<DataExpenses>? = null
+    var totalIncome: Double? = 0.0
+    var totalExpenses: Double? = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +40,12 @@ class MainActivity : AppCompatActivity() {
             bottomSheetFragment.show(supportFragmentManager, "BottomSheetDialog")
         }
 
-        textShowAllIncomes.setOnClickListener{
+        textShowAllIncomes.setOnClickListener {
             val intent = Intent(this, IncomeActivity::class.java)
             startActivity(intent)
         }
 
-        textShowAllExpenses.setOnClickListener{
+        textShowAllExpenses.setOnClickListener {
             val intent = Intent(this, IncomeActivity::class.java)
             startActivity(intent)
         }
@@ -50,6 +53,37 @@ class MainActivity : AppCompatActivity() {
         showCategorylist()
         showIncomeList()
         showExpensesList()
+
+    }
+
+    fun countTotalIncome() {
+        incomeLists?.forEach { income ->
+            totalIncome = income.ammount?.let {
+                totalIncome?.plus(
+                    it
+                )
+            }
+        }
+        textTotalIncomeMain.setText(totalIncome.toString())
+    }
+
+    fun countTotalExpenses() {
+        expenseLists?.forEach { expense ->
+            totalExpenses = expense.ammount?.let {
+                totalExpenses?.plus(
+                    it
+                )
+            }
+        }
+        textTotalExpensesMain.setText(totalExpenses.toString())
+    }
+
+    fun countTotalEarnings() {
+
+        textTotalEarningsMain.setText(
+            (textTotalIncomeMain.text.toString().toDouble() - textTotalExpensesMain.text.toString()
+                .toDouble()).toString()
+        )
     }
 
     fun showCategorylist() {
@@ -63,7 +97,8 @@ class MainActivity : AppCompatActivity() {
                     val item = response.body()?.data
                     val adapter = CategoryAdapter(item, object : CategoryAdapter.OnClickListener {
                         override fun detail(item: DataItem?) {
-                            val intent = Intent(this@MainActivity, DetailCategoryActivity::class.java)
+                            val intent =
+                                Intent(this@MainActivity, DetailCategoryActivity::class.java)
                             intent.putExtra("dataCategory", item)
                             intent.putExtra("categoryName", item?.name)
                             startActivity(intent)
@@ -103,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun  showIncomeList() {
+    fun showIncomeList() {
         val listIncome = NetworkModule.service().getDataIncome()
         listIncome.enqueue(object : Callback<ResponseIncome> {
             override fun onResponse(
@@ -112,6 +147,10 @@ class MainActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val item = response.body()?.data
+                    incomeLists = response.body()?.data
+                    totalIncome = 0.0
+                    countTotalIncome()
+                    countTotalEarnings()
                     val adapter = IncomeAdapter(
                         item,
                         object : IncomeAdapter.OnClickListener {
@@ -160,6 +199,10 @@ class MainActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val item = response.body()?.data
+                    expenseLists = response.body()?.data
+                    totalExpenses = 0.0
+                    countTotalExpenses()
+                    countTotalEarnings()
                     val adapter = ExpensesAdapter(item, object : ExpensesAdapter.OnClickListener {
                         override fun detail(item: DataExpenses?) {
                             val intent = Intent(this@MainActivity, InputActivity::class.java)
@@ -226,6 +269,9 @@ class MainActivity : AppCompatActivity() {
         showCategorylist()
         showIncomeList()
         showExpensesList()
+        totalIncome = 0.0
+        totalExpenses = 0.0
+        countTotalEarnings()
     }
 
 
