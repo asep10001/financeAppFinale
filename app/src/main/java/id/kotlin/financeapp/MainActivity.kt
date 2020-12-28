@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        actionBar?.hide()
 
         fabCategory.setOnClickListener {
             bottomSheetFragment.show(supportFragmentManager, "BottomSheetDialog")

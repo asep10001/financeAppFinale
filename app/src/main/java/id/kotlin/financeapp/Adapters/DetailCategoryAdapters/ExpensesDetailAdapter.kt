@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import id.kotlin.financeapp.Adapters.ExpensesAdapter
 import id.kotlin.financeapp.Adapters.IncomeAdapter
 import id.kotlin.financeapp.Model.getData.Expenses.DataExpenses
@@ -17,6 +18,7 @@ class ExpensesDetailAdapter (val data: List<DataExpenses>?, val itemClick: Expen
         val expensesName = view.textIncomeName
         val expensesSum = view.textIncomeSum
         val expensesDate = view.textIncomeDate
+        val expensesImage = view.textIncomeImage
         val btnHapusExpenses = view.btnHapus
     }
 
@@ -32,6 +34,7 @@ class ExpensesDetailAdapter (val data: List<DataExpenses>?, val itemClick: Expen
         holder.expensesName.text = item?.name
         holder.expensesSum.text = item?.ammount.toString()
         holder.expensesDate.text = item?.transactionDate
+        Glide.with(holder.view.context).load(item?.image).into(holder.expensesImage)
 
         holder.view.setOnClickListener {
             itemClick.detail(item)

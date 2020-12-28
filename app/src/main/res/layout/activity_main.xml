@@ -35,7 +35,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_weight="1"
-                            android:src="@mipmap/ic_myney"
+                            android:src="@mipmap/ic_myney_foreground"
                             android:scaleType="centerCrop"
                             android:layout_height="match_parent"/>
                         <LinearLayout
@@ -221,12 +221,17 @@
         </ScrollView>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/fabCategory"
-        android:layout_width="50dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
+        android:background="@drawable/background_button"
         android:layout_margin="30dp"
-        android:src="@drawable/ic_person_add_white_48dp" />
+        android:text="ADD CATEGORIES"
+        android:fontFamily="sans-serif"
+        android:textFontWeight="900"
+        android:backgroundTint="#D7D50000"/>
+
 
 </FrameLayout>

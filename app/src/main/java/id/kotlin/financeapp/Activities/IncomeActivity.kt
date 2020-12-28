@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.kotlin.anggota.Config.NetworkModule
 import id.kotlin.financeapp.Adapters.IncomeAdapter
-import id.kotlin.financeapp.InputActivity
 import id.kotlin.financeapp.Model.actions.ResponseActions
 import id.kotlin.financeapp.Model.getData.Income.DataIncome
 import id.kotlin.financeapp.Model.getData.Income.ResponseIncome
@@ -25,7 +24,7 @@ class IncomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_income)
 
         fab.setOnClickListener{
-            val intent = Intent(this, InputActivity::class.java)
+            val intent = Intent(this, ShowAllInputActivity::class.java)
             startActivity(intent)
         }
         showIncomeList(list)
@@ -42,7 +41,7 @@ class IncomeActivity : AppCompatActivity() {
                     val item = response.body()?.data
                     val adapter = IncomeAdapter(item, object : IncomeAdapter.OnClickListener {
                         override fun detail(item: DataIncome?) {
-                            val intent = Intent(this@IncomeActivity, InputActivity::class.java)
+                            val intent = Intent(this@IncomeActivity, ShowAllInputActivity::class.java)
                             intent.putExtra("dataIncome", item)
                             startActivity(intent)
                         }
